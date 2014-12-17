@@ -1,0 +1,11 @@
+strayobject_calendar_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: StrayobjectCalendarBundle:Default:index }
+strayobject_calendar_list:
+    path: /list
+    defaults: { _controller: StrayobjectCalendarBundle:List:index }
+strayobject_calendar_list_create_event:
+    path: /list/createevent/{number}
+    defaults: { _controller: StrayobjectCalendarBundle:List:createEvent, number:1 }
+    requirements:
+        number: \d+

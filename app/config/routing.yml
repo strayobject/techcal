@@ -1,0 +1,7 @@
+strayobject_calendar:
+    resource: "@StrayobjectCalendarBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation

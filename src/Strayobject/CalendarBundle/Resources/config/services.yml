@@ -1,0 +1,4 @@
+services:
+#    strayobject_calendar.example:
+#        class: Strayobject\CalendarBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

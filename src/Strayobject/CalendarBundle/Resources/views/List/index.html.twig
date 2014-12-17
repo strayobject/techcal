@@ -1,0 +1,44 @@
+{% extends "StrayobjectCalendarBundle::layout.html.twig" %}
+
+{% block list %}
+    {% if eventList %}
+        <ul class="timeline">
+        {% for date,events in eventList %}
+            <li class="time-label">
+                <span class="bg-red">
+                    {{ date }}
+                </span>
+            </li>
+            {% for event in events %}
+            <li>
+                <!-- timeline icon -->
+                <i class="fa fa-envelope bg-blue"></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> {{event.dateStart|date('Y-m-d')}} {{event.timeStart|date('H:i')}}</span>
+
+                    <h3 class="timeline-header"><a href="#">{{event.name}}</a> ...</h3>
+
+                    <div class="timeline-body">
+                        {{ event.description }}
+                    </div>
+                    <div class="timeline-body">
+                        {{ event.getAddress().getStreet() }}
+                    </div>
+                    <div class="timeline-body">
+                        {% for ticket in event.getTickets() %}
+                            {{ ticket.getType() }}<br/>
+                        {% endfor %}
+                    </div>
+
+                    <div class='timeline-footer'>
+                        <a class="btn btn-primary btn-xs">...</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No events found.</p>
+    {% endif %}
+{% endblock %}
