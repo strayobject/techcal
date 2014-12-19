@@ -7,6 +7,7 @@ use Strayobject\CalendarBundle\Entity\Event;
 use Strayobject\CalendarBundle\Entity\Sponsor;
 use Strayobject\CalendarBundle\Entity\Ticket;
 use Strayobject\CalendarBundle\Entity\Address;
+use Strayobject\CalendarBundle\Entity\Cfp;
 
 class ListController extends Controller
 {
@@ -129,17 +130,36 @@ class ListController extends Controller
             return $a;
         };
 
+        $cfp = function ($i) {
+            $c = null;
+
+            if ($i&1) {
+                $c = new Cfp();
+                $c->setOpenFrom(new \DateTime());
+                $c->setOpenTo(new \DateTime('@'.(time()+rand(10800, 604800))));
+                $c->setLink('http://glasgowphp.co.uk/becomeaspeaker');
+            }
+
+            return $c;
+        };
+
         $em = $this->getDoctrine()->getManager();
 
         for ($i = 0; $i < $number; $i++) {
             $t = $ticket($i);
             $s = $sponsor($i);
             $a = $address($i);
+            $c = $cfp($i);
             $e = $event($i);
 
             $e->addSponsor($s);
             $t->setEvent($e);
             $e->setAddress($a);
+
+            if ($c) {
+                $e->setCfp($c);
+                $em->persist($c);
+            }
 
             $em->persist($s);
             $em->persist($a);

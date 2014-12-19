@@ -67,7 +67,7 @@ class Event
      */
     private $tickets;
     /**
-     * @ORM\OneToOne(targetEntity="Address", mappedBy="event")
+     * @ORM\OneToOne(targetEntity="Address", inversedBy="event")
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      * @var 
      */
@@ -75,9 +75,15 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity="Sponsor", inversedBy="event")
      * @ORM\JoinColumn(name="events_sponsors")
-     * @var
+     * @var \Strayobject\CalendarBundle\Entity\Address
      */
     private $sponsors;
+    /**
+     * @ORM\OneToOne(targetEntity="Cfp", inversedBy="event")
+     * @ORM\joinColumn(name="cfp_id", referencedColumnName="id")
+     * @var \Strayobject\CalendarBundle\Entity\Cfp
+     */
+    private $cfp;
 
     public function __construct()
     {
@@ -379,6 +385,30 @@ class Event
     public function setSponsors($sponsors)
     {
         $this->sponsors = $sponsors;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of cfp.
+     *
+     * @return \Strayobject\CalendarBundle\Entity\Cfp
+     */
+    public function getCfp()
+    {
+        return $this->cfp;
+    }
+
+    /**
+     * Sets the value of cfp.
+     *
+     * @param \Strayobject\CalendarBundle\Entity\Cfp $cfp the cfp
+     *
+     * @return self
+     */
+    public function setCfp(\Strayobject\CalendarBundle\Entity\Cfp $cfp)
+    {
+        $this->cfp = $cfp;
 
         return $this;
     }
